@@ -51,7 +51,7 @@ function Chat() {
         if (friendIds.length > 0) {
             toast.success(friendIds);
             socket.emit('startGroupChat', { friendIds });
-            navigate('/group-chat');
+            navigate('/chat-room');
         } else {
             toast.error('Please add at least one friend to start the group chat.');
         }

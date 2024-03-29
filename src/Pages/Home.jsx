@@ -3,6 +3,7 @@ import Card from '../Components/Card';
 import { createInstance } from '../Axios/Axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSocket } from '../Socket/SocketProvider';
+import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Home.css';
 
@@ -32,13 +33,33 @@ function Home() {
         }
     }
 
+    // useEffect(() => {
+    //     getFriends();
+    //     socket.on('groupChatStarted', ({ chatRoomId }) => { 
+    //         console.log("Chat room id :", chatRoomId);
+    //         alert("Chat room id : " + chatRoomId);
+    //     });
+    // }, [reloadPage,socket])
+
     useEffect(() => {
         getFriends();
-        socket.on('groupChatStarted', (roomId) => {
-            console.log("Chat room id :", roomId);
-            alert("Chat room id :", roomId)
+        socket.on('groupChatStarted', ({ chatRoomId }) => {
+            Swal.fire({
+                title: 'You are invited to a group chat!',
+                text: `Do you want to join the chat room ${chatRoomId}?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, join chat',
+                cancelButtonText: 'No, thanks'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate(`/chat-room/${chatRoomId}`);
+                } else {
+                    console.log('User declined the invitation');
+                }
+            });
         })
-    }, [reloadPage,socket])
+    }, [reloadPage, socket]);
 
     return (
         <>

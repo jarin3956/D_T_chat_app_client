@@ -8,6 +8,7 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import Chat from './Pages/Chat';
+import ChatRoom from './Pages/ChatRoom';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/chat-room" element={<ChatRoom />} />
         </Route>
 
       </Routes>
