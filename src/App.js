@@ -12,7 +12,6 @@ import ChatRoom from './Pages/ChatRoom';
 
 function App() {
   return (
-    
 
     <BrowserRouter>
     <NavBar/>

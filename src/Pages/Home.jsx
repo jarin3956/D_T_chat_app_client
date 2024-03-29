@@ -6,6 +6,7 @@ import { useSocket } from '../Socket/SocketProvider';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
@@ -13,6 +14,7 @@ function Home() {
     const [reloadPage, setReloadPage] = useState(false);
 
     const socket = useSocket();
+    const navigate = useNavigate();
 
     const getFriends = async () => {
         try {
