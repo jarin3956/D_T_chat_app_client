@@ -55,7 +55,7 @@ function Home() {
                 cancelButtonText: 'No, thanks'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate(`/chat-room/${chatRoomId}`);
+                    navigate(`/chat-room`);
                 } else {
                     console.log('User declined the invitation');
                 }
