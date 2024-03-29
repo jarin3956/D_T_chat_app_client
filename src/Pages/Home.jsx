@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Components/Card';
 import { createInstance } from '../Axios/Axios';
 import { toast, ToastContainer } from 'react-toastify';
+import { useSocket } from '../Socket/SocketProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Home.css';
 
@@ -9,6 +10,8 @@ function Home() {
 
     const [users, setUsers] = useState([]);
     const [reloadPage, setReloadPage] = useState(false);
+
+    const socket = useSocket();
 
     const getFriends = async () => {
         try {
@@ -30,8 +33,12 @@ function Home() {
     }
 
     useEffect(() => {
-        getFriends()
-    }, [reloadPage])
+        getFriends();
+        socket.on('groupChatStarted', (roomId) => {
+            console.log("Chat room id :", roomId);
+            alert("Chat room id :", roomId)
+        })
+    }, [reloadPage,socket])
 
     return (
         <>
