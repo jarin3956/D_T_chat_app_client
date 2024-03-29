@@ -43,9 +43,24 @@ function Home() {
     //     });
     // }, [reloadPage,socket])
 
+    // useEffect(() => {
+    //     getFriends();
+    //     socket.on('groupChatStarted', ({ chatRoomId }) => {
+    //         Swal.fire({
+    //             title: 'You are invited to a group chat!',
+    //             text: `Do you want to join the chat room ${chatRoomId}?`,
+    //             icon: 'question',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Yes, join chat',
+    //             cancelButtonText: 'No, thanks'
+    //         })
+    //     })
+    // }, [reloadPage, socket,navigate]);
+
     useEffect(() => {
         getFriends();
         socket.on('groupChatStarted', ({ chatRoomId }) => {
+            console.log("Received groupChatStarted event. Chat room id:", chatRoomId);
             Swal.fire({
                 title: 'You are invited to a group chat!',
                 text: `Do you want to join the chat room ${chatRoomId}?`,
@@ -53,9 +68,20 @@ function Home() {
                 showCancelButton: true,
                 confirmButtonText: 'Yes, join chat',
                 cancelButtonText: 'No, thanks'
-            })
-        })
-    }, [reloadPage, socket,navigate]);
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('User chose to join the chat.');
+                } else {
+                    console.log('User chose not to join the chat.');
+                }
+            });
+        });
+
+        return () => {
+            socket.off('groupChatStarted');
+        };
+    }, [reloadPage, socket, navigate]);
+
 
     return (
         <>
