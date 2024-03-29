@@ -1,0 +1,83 @@
+
+
+.r-form {
+    --input-focus: #2d8cf0;
+    --font-color: #323232;
+    --font-color-sub: #666;
+    --bg-color: beige;
+    --main-color: black;
+    padding: 20px;
+    background: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    height: 500px;
+    max-width: 330px; 
+    width: 100%; 
+}
+
+.r-title {
+    color: var(--font-color);
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 25px;
+    text-align: center; 
+}
+
+.r-title span {
+    color: var(--font-color-sub);
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.r-input {
+    width: 100%; 
+    max-width: 250px; 
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--font-color);
+    padding: 5px 10px;
+    outline: none;
+}
+
+
+@media (max-width: 768px) {
+    .r-form {
+        height: auto; 
+        padding: 10px;
+    }
+
+    .r-input {
+        max-width: 250px; 
+    }
+}
+
+
+
+.r-button-confirm {
+    margin-top: 20px; 
+    width: 100%; 
+    max-width: 250px; 
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--font-color);
+    cursor: pointer;
+}
+
+.theLink {
+    cursor: pointer;
+}

@@ -1,0 +1,20 @@
+.h-area {
+    min-height: 90vh;
+}
+
+.h-header{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-area {
+    margin: 0;
+}
+
+.card-space{
+    display: flex;
+    justify-content: center;
+}
+
