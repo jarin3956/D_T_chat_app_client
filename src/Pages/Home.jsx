@@ -53,15 +53,9 @@ function Home() {
                 showCancelButton: true,
                 confirmButtonText: 'Yes, join chat',
                 cancelButtonText: 'No, thanks'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate(`/chat-room`);
-                } else {
-                    console.log('User declined the invitation');
-                }
-            });
+            })
         })
-    }, [reloadPage, socket]);
+    }, [reloadPage, socket,navigate]);
 
     return (
         <>
