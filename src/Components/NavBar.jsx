@@ -136,7 +136,7 @@ function NavBar() {
                 <MenuItem onClick={() => navigate('/profile')} >
                     Profile
                 </MenuItem>
-                <MenuItem onClick={() => navigate('/chat-room')}>
+                <MenuItem onClick={() => navigate('/chat')}>
                     Chat Room
                 </MenuItem>
                 <MenuItem onClick={logOutUser}>

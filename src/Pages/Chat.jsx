@@ -12,6 +12,8 @@ function Chat() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [friendIds, setFriendIds] = useState([]);
+    const [iUser, setIUser] = useState('');
+    const [iUserId, setIUserId] = useState('');
 
     const findFriends = async () => {
         try {
@@ -36,9 +38,10 @@ function Chat() {
         try {
             let res = await createInstance().get('/profile');
             if (res.status === 200) {
-                console.log('profile data',res.data.user);
-                // setUser(res.data.user);
+                console.log('profile data', res.data.user);
                 socket.emit('set-up', res.data.user._id);
+                setIUser(res.data.user.name);
+                setIUserId(res.data.user._id)
             } else {
                 toast.error('Cannot find users, Please try after sometime.')
             }
@@ -60,7 +63,7 @@ function Chat() {
 
     const addToChat = async (uId) => {
         try {
-            setFriendIds([...friendIds, uId ]);
+            setFriendIds([...friendIds, uId]);
             socket.emit('addFriendToChat', { friendId: uId });
             toast.success('Friend added to chat')
         } catch (error) {
@@ -71,8 +74,12 @@ function Chat() {
     const startGroupChat = () => {
         if (friendIds.length > 0) {
             toast.success(friendIds);
-            socket.emit('startGroupChat', { friendIds });
-            navigate('/chat-room');
+            console.log('Main user name', iUser);
+            socket.emit('startGroupChat', { friendIds, iUser, iUserId });
+            socket.on('groupChatStarted', ({ chatRoomId }) => {
+                console.log(chatRoomId, 'room idddd');
+                navigate(`/chat-room/${chatRoomId}`);
+            });
         } else {
             toast.error('Please add at least one friend to start the group chat.');
         }
@@ -106,10 +113,10 @@ function Chat() {
                     </div>
                 )}
             </div>
-            <div  className='c-footer'>
-            <button className='start-chat-btn' onClick={startGroupChat} >
-                Start Group Chat
-            </button>
+            <div className='c-footer'>
+                <button className='start-chat-btn' onClick={startGroupChat} >
+                    Start Group Chat
+                </button>
             </div>
         </>
     )

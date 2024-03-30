@@ -12,6 +12,7 @@ function Home() {
 
     const [users, setUsers] = useState([]);
     const [reloadPage, setReloadPage] = useState(false);
+    
 
     const socket = useSocket();
     const navigate = useNavigate();
@@ -35,35 +36,16 @@ function Home() {
         }
     }
 
-    // useEffect(() => {
-    //     getFriends();
-    //     socket.on('groupChatStarted', ({ chatRoomId }) => { 
-    //         console.log("Chat room id :", chatRoomId);
-    //         alert("Chat room id : " + chatRoomId);
-    //     });
-    // }, [reloadPage,socket])
-
-    // useEffect(() => {
-    //     getFriends();
-    //     socket.on('groupChatStarted', ({ chatRoomId }) => {
-    //         Swal.fire({
-    //             title: 'You are invited to a group chat!',
-    //             text: `Do you want to join the chat room ${chatRoomId}?`,
-    //             icon: 'question',
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Yes, join chat',
-    //             cancelButtonText: 'No, thanks'
-    //         })
-    //     })
-    // }, [reloadPage, socket,navigate]);
+    let theId = '';
+    let theName = '';
 
     const profileData = async () => {
         try {
             let res = await createInstance().get('/profile');
             if (res.status === 200) {
-                console.log('profile data',res.data.user);
-                // setUser(res.data.user);
                 socket.emit('set-up', res.data.user._id);
+                theId = res.data.user._id;
+                theName = res.data.user.name;
             } else {
                 toast.error('Cannot find users, Please try after sometime.')
             }
@@ -79,11 +61,14 @@ function Home() {
 
     useEffect(() => {
         profileData()
+    }, [])
+
+    useEffect(() => {
         getFriends();
-        socket.on('groupChatStarted', ({ chatRoomId }) => {
+        socket.on('groupChatStarted', ({ chatRoomId, iUser }) => {
             console.log("Received groupChatStarted event. Chat room id:", chatRoomId);
             Swal.fire({
-                title: 'You are invited to a group chat!',
+                title: `You are invited to a group chat by ${iUser} !`,
                 text: `Do you want to join the chat room ${chatRoomId}?`,
                 icon: 'question',
                 showCancelButton: true,
@@ -91,9 +76,14 @@ function Home() {
                 cancelButtonText: 'No, thanks'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log('User chose to join the chat.');
+                    if (theId, theName) {
+                        socket.emit('usr-joined-chat', { theId, theName, chatRoomId });
+                        navigate(`/chat-room/${chatRoomId}`);
+                    }
                 } else {
-                    console.log('User chose not to join the chat.');
+                    if (theId, theName) {
+                        socket.emit('usr-rej-chat', { theId, theName, chatRoomId });
+                    }
                 }
             });
         });
