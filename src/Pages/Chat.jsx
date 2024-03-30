@@ -32,7 +32,28 @@ function Chat() {
         }
     }
 
+    const profileData = async () => {
+        try {
+            let res = await createInstance().get('/profile');
+            if (res.status === 200) {
+                console.log('profile data',res.data.user);
+                // setUser(res.data.user);
+                socket.emit('set-up', res.data.user._id);
+            } else {
+                toast.error('Cannot find users, Please try after sometime.')
+            }
+        } catch (error) {
+            let es = error.response.status;
+            if (es === 400 || es === 401 || es === 404 || es === 403 || es === 500) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Login failed. Please try again.');
+            }
+        }
+    }
+
     useEffect(() => {
+        profileData()
         findFriends()
     }, []);
 
