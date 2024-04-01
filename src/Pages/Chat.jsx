@@ -71,14 +71,17 @@ function Chat() {
         }
     }
 
-    const startGroupChat = () => {
+    const startGroupChat = async () => {
         if (friendIds.length > 0) {
-            toast.success(friendIds);
             console.log('Main user name', iUser);
             socket.emit('startGroupChat', { friendIds, iUser, iUserId });
             socket.on('groupChatStarted', ({ chatRoomId }) => {
                 console.log(chatRoomId, 'room idddd');
-                navigate(`/chat-room/${chatRoomId}`);
+                if (chatRoomId) {
+                    navigate(`/chat-room/${chatRoomId}`);
+                } else {
+                    toast.error('There was an error loading chatroom, Please try after sometime.')
+                }
             });
         } else {
             toast.error('Please add at least one friend to start the group chat.');
