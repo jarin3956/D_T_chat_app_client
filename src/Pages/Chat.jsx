@@ -102,7 +102,7 @@ function Chat() {
                         {users.map((user) => (
                             <div key={user._id} className="col-lg-3 col-md-6 col-sm-12 c-card-space">
                                 <div className="ch-card">
-                                    <div className="ch-card-img"><div className="img"><img src="/logo192.png" alt="Logo" /></div></div>
+                                    <div className="ch-card-img"><div><img className="pro-img" src={user.image} alt="Logo" /></div></div>
                                     <div className="ch-card-name">{user.name}</div>
                                     <div className="ch-card-email">{user.email}</div>
                                     <div className="ch-card-footer">

@@ -24,6 +24,10 @@
     justify-content: center;
 }
 
+.pro-img {
+    width: 200px;
+}
+
 
 .pro-card-name {
     font-size: 20px;
@@ -55,6 +59,7 @@
     border-radius: 5px;
     padding: 0 15px;
     transition: all 0.3s;
+    margin-right: 5px;
 }
 
 
@@ -64,4 +69,23 @@
 
 .pro-card-btn:active {
     transform: translateY(3px);
+}
+
+.image-opt {
+    display: flex;
+    justify-content: center;
+}
+
+
+.image-opt-sel {
+    width: 70px;
+    margin: 14px;
+}
+
+.image-opt-text {
+    text-align: center;
+}
+
+.selected-image {
+    border: 2px solid blue;
 }

@@ -33,7 +33,7 @@ function Card({ user, setReloadPage, page }) {
         <>
             <ToastContainer />
             <div className="card">
-                <div className="card-img"><div className="img"><img src="/logo192.png" alt="Logo" /></div></div>
+                <div className="card-img"><div><img className='pro-img' src={user.image} alt="Logo" /></div></div>
                 <div className="card-name">{user.name}</div>
                 <div className="card-email">{user.email}</div>
                 <div className="card-footer">
